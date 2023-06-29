@@ -2,21 +2,23 @@ package com.thiagoleite.curso.service;
 
 import com.thiagoleite.curso.entities.User;
 import com.thiagoleite.curso.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class UserService {
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    public List<User> getAllUsers() {
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public void saveUser(User user) {
-        userRepository.save(user);
+    public User findById(Long id) {
+        Optional<User> obj =  userRepository.findById(id);
+        return obj.get();
     }
 }
